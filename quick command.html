@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="fr" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Quick command - Le Blog de Mr Prud</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="/quick command.html">
+
+        <meta name="author" content="Mr P." />
+        <meta name="keywords" content="linux" />
+        <meta name="description" content="Pelican workon pelicanwebsite &amp;&amp; cd output &amp;&amp; python -m SimpleHTTPServer 8000 &amp; cd .. &amp;&amp; pelican -r Gitlab Update : docker stop gitlabdemrprud &amp;&amp; \ docker rm gitlabdemrprud &amp;&amp; \ docker pull gitlab/gitlab-ce:latest docker rm gitlabdemrprud &amp;&amp; \ docker run --detach \ --hostname domo \ --publish 443:443 --publish 80:80 --publish 2222:22 \ --name gitlabdemrprud \ --restart always \ --volume /data/gitlab/conf …" />
+
+        <meta property="og:site_name" content="Le Blog de Mr Prud" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Quick command"/>
+        <meta property="og:url" content="/quick command.html"/>
+        <meta property="og:description" content="Pelican workon pelicanwebsite &amp;&amp; cd output &amp;&amp; python -m SimpleHTTPServer 8000 &amp; cd .. &amp;&amp; pelican -r Gitlab Update : docker stop gitlabdemrprud &amp;&amp; \ docker rm gitlabdemrprud &amp;&amp; \ docker pull gitlab/gitlab-ce:latest docker rm gitlabdemrprud &amp;&amp; \ docker run --detach \ --hostname domo \ --publish 443:443 --publish 80:80 --publish 2222:22 \ --name gitlabdemrprud \ --restart always \ --volume /data/gitlab/conf …"/>
+        <meta property="article:published_time" content="2017-06-07" />
+            <meta property="article:section" content="Linux" />
+            <meta property="article:tag" content="linux" />
+            <meta property="article:author" content="Mr P." />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/paraiso-dark.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+Le Blog de Mr Prud            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                        <li >
+                            <a href="/category/domo.html">Domo</a>
+                        </li>
+                        <li class="active">
+                            <a href="/category/linux.html">Linux</a>
+                        </li>
+                        <li >
+                            <a href="/category/misc.html">Misc</a>
+                        </li>
+                        <li >
+                            <a href="/category/network.html">Network</a>
+                        </li>
+                        <li >
+                            <a href="/category/tricks.html">Tricks</a>
+                        </li>
+                        <li >
+                            <a href="/category/utility.html">Utility</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/quick command.html"
+                       rel="bookmark"
+                       title="Permalink to Quick command">
+                        Quick command
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2017-06-07T22:00:00+02:00"> mer. 07 juin 2017</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="/tag/linux.html">linux</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <div class="section" id="pelican">
+<h2>Pelican</h2>
+<div class="highlight"><pre><span></span><span class="go">workon pelicanwebsite &amp;&amp;</span>
+<span class="go">cd output &amp;&amp; python -m SimpleHTTPServer 8000 &amp;</span>
+<span class="go">cd .. &amp;&amp; pelican -r</span>
+</pre></div>
+<!--  -->
+</div>
+<div class="section" id="gitlab">
+<h2>Gitlab</h2>
+<p>Update :</p>
+<div class="highlight"><pre><span></span><span class="go">docker stop gitlabdemrprud &amp;&amp; \</span>
+<span class="go">docker rm gitlabdemrprud &amp;&amp; \</span>
+<span class="go">docker pull gitlab/gitlab-ce:latest</span>
+<span class="go">docker rm gitlabdemrprud &amp;&amp; \</span>
+<span class="go">docker run --detach \</span>
+<span class="go">--hostname domo \</span>
+<span class="go">--publish 443:443 --publish 80:80 --publish 2222:22 \</span>
+<span class="go">--name gitlabdemrprud \</span>
+<span class="go">--restart always \</span>
+<span class="go">--volume /data/gitlab/conf:/etc/gitlab \</span>
+<span class="go">--volume /data/gitlab/logs:/var/log/gitlab \</span>
+<span class="go">--volume /data/gitlab/data:/var/opt/gitlab \</span>
+<span class="go">gitlab/gitlab-ce:latest</span>
+</pre></div>
+<!--  -->
+<p>backup
+docker exec -t gitlabdemrprud gitlab-rake gitlab:backup:create</p>
+<div class="highlight"><pre><span></span><span class="go">docker stop home-assistant &amp;&amp; \</span>
+<span class="go">docker rm home-assistant &amp;&amp; \</span>
+<span class="go">docker pull homeassistant/home-assistant:latest &amp;&amp; \</span>
+<span class="go">docker run  -d \</span>
+<span class="go">     --restart=unless-stopped \</span>
+<span class="go">     --name home-assistant \</span>
+<span class="go">     -p 8123:8123 \</span>
+<span class="go">     -v /home/homeassistant/.homeassistant:/config \</span>
+<span class="go">     -v /etc/localtime:/etc/localtime:ro  \</span>
+<span class="go">     --device=/dev/zwave:/zwave:rwm homeassistant/home-assistant</span>
+</pre></div>
+<!--  -->
+<div class="highlight"><pre><span></span><span class="go">docker run -d -p 9000:9000 -v /var/run/docker.sock:/var/run/docker.sock -n monportainer portainer/portainer</span>
+</pre></div>
+<!--  -->
+</div>
+
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://github.com/prudprud"><i class="fa fa-github-square fa-lg"></i> github</a></li>
+                <li class="list-group-item"><a href="https://twitter.com/mr_prud"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+              </ul>
+            </li>
+
+
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="https://www.lachetastack.fr/" target="_blank">
+                LTS le Forum
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2017 Mr P.
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+
+</body>
+</html>

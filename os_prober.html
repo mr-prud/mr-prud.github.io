@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="fr" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>"os-prober dépendant" - Le Blog de Mr Prud</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="/os_prober.html">
+
+        <meta name="author" content="Mr P." />
+        <meta name="keywords" content="Fedora" />
+        <meta name="description" content="Si toi aussi tu galères avec grub2 et la détection d&#39;une partition Windows, pas de soucis, j&#39;ai la solution." />
+
+        <meta property="og:site_name" content="Le Blog de Mr Prud" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="&#34;os-prober dépendant&#34;"/>
+        <meta property="og:url" content="/os_prober.html"/>
+        <meta property="og:description" content="Si toi aussi tu galères avec grub2 et la détection d&#39;une partition Windows, pas de soucis, j&#39;ai la solution."/>
+        <meta property="article:published_time" content="2014-02-24" />
+            <meta property="article:section" content="misc" />
+            <meta property="article:tag" content="Fedora" />
+            <meta property="article:author" content="Mr P." />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/paraiso-dark.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+Le Blog de Mr Prud            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="/pages/quick command.html">
+                             Quick command
+                          </a></li>
+                        <li >
+                            <a href="/category/domo.html">Domo</a>
+                        </li>
+                        <li >
+                            <a href="/category/linux.html">Linux</a>
+                        </li>
+                        <li class="active">
+                            <a href="/category/misc.html">Misc</a>
+                        </li>
+                        <li >
+                            <a href="/category/network.html">Network</a>
+                        </li>
+                        <li >
+                            <a href="/category/tricks.html">Tricks</a>
+                        </li>
+                        <li >
+                            <a href="/category/utility.html">Utility</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/os_prober.html"
+                       rel="bookmark"
+                       title="Permalink to "os-prober dépendant"">
+                        "os-prober dépendant"
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-02-24T21:08:01+01:00"> lun. 24 février 2014</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="/tag/fedora.html">Fedora</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>Si toi aussi tu galères avec grub2 et la détection d'une partition Windows, pas de soucis, j'ai la solution.
+</p>
+<p>Mon souci était que je n'arrivais pas à avoir le choix de mon OS par grub2. Après que mon ami Google m'ai donné plusieurs techniques des plus exotiques, je me suis dit que ça ne devait pas être aussi compliqué.</p>
+<h2>Petite explication de grub2.</h2>
+<p>La force de grub2 (et sa faiblesse) est la génération du fichier de configuration.
+Par exemple il suffit d'ajouter un kernel dans le dossier <em>/boot</em> de relancer grub2 et il apparaitra lors du prochain démarrage</p>
+<p>Il devrait aller de même pour les autres systèmes d'exploitation. Pour cela grub2 s'appuie sur os-prober qui s'appuie lui même sur les tools des différents systèmes de fichiers.</p>
+<p>Par exemple pour :</p>
+<ul>
+<li>Windows : ntfsprogs</li>
+<li>Linux sous brtfs : btrfs-progs</li>
+<li>etc.</li>
+</ul>
+<p>Donc, avant de faire un fichier custom sous grub2, où il y a de fortes chances que tu fasses un grossier copier/coller de Google et que tu croises les doigts lors du prochain reboot, vérifie que tu as les bons tools.</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://github.com/prudprud"><i class="fa fa-github-square fa-lg"></i> github</a></li>
+                <li class="list-group-item"><a href="https://twitter.com/mr_prud"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+              </ul>
+            </li>
+
+
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="https://www.lachetastack.fr/" target="_blank">
+                LTS le Forum
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 Mr P.
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="fr" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Datadog Agent sur raspberry pi - Le Blog de Mr Prud</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="/datadog raspberry.html">
+
+        <meta name="author" content="Mr P." />
+        <meta name="keywords" content="raspberry,linux" />
+        <meta name="description" content="J&#39;aime les graphes! J&#39;aime me rassurer que mes serveurs ne font rien. Je mesure tout... enfin surtout plein de rien... bref je monitor mes serveurs perso Pour assouvir mes pulsions de contrôle, j&#39;utilise datadog ( https://www.datadoghq.com/ ) pour les 2,3 graphes sur mes serveurs perso. C&#39;est pratique, ça …" />
+
+        <meta property="og:site_name" content="Le Blog de Mr Prud" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Datadog Agent sur raspberry pi"/>
+        <meta property="og:url" content="/datadog raspberry.html"/>
+        <meta property="og:description" content="J&#39;aime les graphes! J&#39;aime me rassurer que mes serveurs ne font rien. Je mesure tout... enfin surtout plein de rien... bref je monitor mes serveurs perso Pour assouvir mes pulsions de contrôle, j&#39;utilise datadog ( https://www.datadoghq.com/ ) pour les 2,3 graphes sur mes serveurs perso. C&#39;est pratique, ça …"/>
+        <meta property="article:published_time" content="2014-12-21" />
+            <meta property="article:section" content="misc" />
+            <meta property="article:tag" content="raspberry" />
+            <meta property="article:tag" content="linux" />
+            <meta property="article:author" content="Mr P." />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/paraiso-dark.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+Le Blog de Mr Prud            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="/pages/quick command.html">
+                             Quick command
+                          </a></li>
+                        <li >
+                            <a href="/category/domo.html">Domo</a>
+                        </li>
+                        <li >
+                            <a href="/category/linux.html">Linux</a>
+                        </li>
+                        <li class="active">
+                            <a href="/category/misc.html">Misc</a>
+                        </li>
+                        <li >
+                            <a href="/category/network.html">Network</a>
+                        </li>
+                        <li >
+                            <a href="/category/tricks.html">Tricks</a>
+                        </li>
+                        <li >
+                            <a href="/category/utility.html">Utility</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/datadog raspberry.html"
+                       rel="bookmark"
+                       title="Permalink to Datadog Agent sur raspberry pi">
+                        Datadog Agent sur raspberry pi
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-12-21T10:20:00+01:00"> dim. 21 décembre 2014</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="/tag/raspberry.html">raspberry</a>
+        /
+	<a href="/tag/linux.html">linux</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>J'aime les graphes!</p>
+<p>J'aime me rassurer que mes serveurs ne font rien.</p>
+<p>Je mesure tout... enfin surtout plein de rien... bref je monitor mes serveurs perso</p>
+<p>Pour assouvir mes pulsions de contrôle, j'utilise datadog ( <a class="reference external" href="https://www.datadoghq.com/">https://www.datadoghq.com/</a> ) pour les 2,3 graphes sur mes serveurs perso. C'est pratique, ça fonctionne pas trop mal, c'est assez léger, et c'est du Saas, et saas c'est bien.</p>
+<p>Je voulais ajouter mon raspberry de domotique dessus, voici la petite procédure pour installer l'agent sur un raspberry (raspbian 7.6)</p>
+<div class="section" id="installation">
+<h2>Installation</h2>
+<p>Datadog fournit des packages pour un paquet de distribution, mais pas pour raspberry (ça doit etre vrai pour tout les arm), il  faut nous jeter sur les sources.</p>
+<p>Fonçons sur le site =&gt;</p>
+<img alt="superbe capture dans le cas où tu serais vraiment, mais vraiement perdu" class="align-center" src="/images/datadog-raspberry_1.png" />
+<p>Le seul prérequis pour l'agent est :</p>
+<div class="highlight"><pre><span></span><span class="go">➜  ~  sudo apt-get install sysstat</span>
+</pre></div>
+<!--  -->
+<p>Ensuite, <strong>attention !!</strong></p>
+<p>Datadog fournit gentillement la ligne de commande à copier/coller... Si vous ne souhaitez pas que l'agent soit installé en <tt class="docutils literal"><span class="pre">/root/.ddagent</span></tt> ajoutez la variable <tt class="docutils literal">DD_HOME</tt></p>
+<div class="highlight"><pre><span></span><span class="go">➜  ~  DD_HOME=/usr/local/dd-agent DD_API_KEY=tulasvu sh -c &quot;$(curl -L https://raw.githubusercontent.com/DataDog/dd-agent/master/packaging/datadog-agent/source/setup_agent.sh)&quot;</span>
+</pre></div>
+<!--  -->
+<p>Un fois cela fait, l'agent se lance.</p>
+</div>
+<div class="section" id="c-est-fini">
+<h2>C'est fini</h2>
+<p>Il suffit ensuite de mettre en place un script d'init et de vérifier que ça fonctionne.</p>
+<p>Vous trouverez <a class="reference external" href="https://gist.github.com/mr-prud/896e8bd2ffca859268f5#file-datadog-agent">ici</a>  un script d'init.</p>
+<div class="highlight"><pre><span></span><span class="gp">pi@bac ~ $</span> sudo update-rc.d datadog-agent defaults
+<span class="go">update-rc.d: using dependency based boot sequencing</span>
+<span class="gp">pi@bac ~ $</span> sudo /etc/init.d/datadog-agent start
+<span class="go">[ ok ] Starting datadog-agent: agent.</span>
+<span class="gp">pi@bac ~ $</span> sudo /etc/init.d/datadog-agent status
+<span class="go">[ ok ] agent is running.</span>
+<span class="gp">pi@bac ~ $</span> sudo /etc/init.d/datadog-agent info
+<span class="go">===================</span>
+<span class="go">Collector (v 5.1.1)</span>
+<span class="go">===================</span>
+<span class="go">......</span>
+</pre></div>
+<!--  -->
+<p>Et voici les premiers graphes</p>
+<img alt="les premiers graphes" class="align-center" src="/images/datadog-raspberry_2.png" />
+<p>L'idée ensuite est de remontée tout mes graphes de domotique (consommation electrique, température int/ext etc...)</p>
+<dl class="docutils">
+<dt>source</dt>
+<dd><ul class="first last simple">
+<li>Datadog agent doc: <a class="reference external" href="http://docs.datadoghq.com/guides/basic_agent_usage/source/">http://docs.datadoghq.com/guides/basic_agent_usage/source/</a></li>
+</ul>
+</dd>
+</dl>
+</div>
+
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://github.com/prudprud"><i class="fa fa-github-square fa-lg"></i> github</a></li>
+                <li class="list-group-item"><a href="https://twitter.com/mr_prud"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+              </ul>
+            </li>
+
+
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="https://www.lachetastack.fr/" target="_blank">
+                LTS le Forum
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 Mr P.
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+
+</body>
+</html>

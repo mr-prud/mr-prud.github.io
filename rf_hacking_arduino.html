@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="fr" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>R_F hacking pour storeban - Le Blog de Mr Prud</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="/rf_hacking_arduino.html">
+
+        <meta name="author" content="Mr P." />
+        <meta name="keywords" content="arduino,rf" />
+        <meta name="description" content="Automatisation du storeban Avoir un storeban c&#39;est bien. Utiliser son storeban pour eviter que le salon devienne une fournaise c&#39;est mieux. En étant sur place c&#39;est possible, un clic de télécommande et le storeban descend par magie, la fraicheur revient dans le salon à l&#39;ombre. Cela fonctionne quand tu glandes …" />
+
+        <meta property="og:site_name" content="Le Blog de Mr Prud" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="R_F hacking pour storeban"/>
+        <meta property="og:url" content="/rf_hacking_arduino.html"/>
+        <meta property="og:description" content="Automatisation du storeban Avoir un storeban c&#39;est bien. Utiliser son storeban pour eviter que le salon devienne une fournaise c&#39;est mieux. En étant sur place c&#39;est possible, un clic de télécommande et le storeban descend par magie, la fraicheur revient dans le salon à l&#39;ombre. Cela fonctionne quand tu glandes …"/>
+        <meta property="article:published_time" content="2015-02-19" />
+            <meta property="article:section" content="domo" />
+            <meta property="article:tag" content="arduino" />
+            <meta property="article:tag" content="rf" />
+            <meta property="article:author" content="Mr P." />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/paraiso-dark.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+Le Blog de Mr Prud            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="/pages/quick command.html">
+                             Quick command
+                          </a></li>
+                        <li class="active">
+                            <a href="/category/domo.html">Domo</a>
+                        </li>
+                        <li >
+                            <a href="/category/linux.html">Linux</a>
+                        </li>
+                        <li >
+                            <a href="/category/misc.html">Misc</a>
+                        </li>
+                        <li >
+                            <a href="/category/network.html">Network</a>
+                        </li>
+                        <li >
+                            <a href="/category/tricks.html">Tricks</a>
+                        </li>
+                        <li >
+                            <a href="/category/utility.html">Utility</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/rf_hacking_arduino.html"
+                       rel="bookmark"
+                       title="Permalink to R_F hacking pour storeban">
+                        R_F hacking pour storeban
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2015-02-19T10:20:00+01:00"> jeu. 19 février 2015</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="/tag/arduino.html">arduino</a>
+        /
+	<a href="/tag/rf.html">rf</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <div class="section" id="automatisation-du-storeban">
+<h2>Automatisation du storeban</h2>
+<p>Avoir un storeban c'est bien.</p>
+<p>Utiliser son storeban pour eviter que le salon devienne une fournaise c'est mieux.</p>
+<p>En étant sur place c'est possible, un clic de télécommande et le storeban descend par magie, la fraicheur revient dans le salon à l'ombre.</p>
+<p>Cela fonctionne quand tu glandes sec chez toi, mais quand tu es absent à l'heure de pointe du soleil, il n'y a personne pour appuyer sur le bouton magique de la télécommande et là tu prends chere quand tu rentres en espérant retrouver un peu de fraicheur.</p>
+<p>Seul solution à ce probleme : Faut automatiser le bousin.</p>
+</div>
+<div class="section" id="materiel-en-place">
+<h2>Matériel en place</h2>
+<p>J'ai donc un storeban télécommandé, la télécommande est à onde radio, et sa fréquence est aux alentours des 433MHz (c'est indiqué 433.92Mhz, on va dire que c'est pareil, car en réalité c'est une bande de fréquence de 433.05 à 434.79)</p>
+<p>433Mhz, c'est une des fréquences utilisables sans licence (pour les cityoens lambda de type péon) pour la transmission de données, en Europe du moins (je crois que c'est monde). La puissance maximum pour ces usages est un PAR (Puissances Apparentes Rayonnées) de 10mW, c'est à dire quelques dizaine de metre en condition optimale realiste (quand tu cherches à optimiser avec du matos bas de gamme)</p>
+</div>
+<div class="section" id="listes-des-courses">
+<h2>Listes des courses</h2>
+<p>Alors je vais dans un premier temps analyser le signal envoyé par la télécommande et dans un deuxieme temps rejouer celui-ci.
+Je travaille avec mon arduino Uno pour la partie commande.</p>
+<p>Je suis parti sur un kit émetteur/récépteur de ce genre là :</p>
+<img alt="module rf pas cher" class="align-center" src="/images/rf_pic_1.png" />
+<p>Fonctionnant en +5V, ça devrait pas vous coûter plus que 4-5€ sur votre marchand favori, avec ce genre de matos n'esperer pas une portée de ouf!.</p>
+<p>Personnelement je fais max du 10M dans une maison.</p>
+<dl class="docutils">
+<dt>Ensuite il vous faut :</dt>
+<dd><ul class="first last simple">
+<li>une résistance de 39kΩ</li>
+<li>une resistance de 10kΩ</li>
+<li>Une plaque lab (breadboard) et ses accessoires</li>
+<li>un cable jack (d'un vieu casque par exemple)</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="partie-electronique">
+<h2>Partie éléctronique</h2>
+<p>Premiere mission, la recherche des signaux RF de la télécommande... Mais comment faire pour sniffer le code RF.</p>
+<p>Il existe des librairies RF pour arduino, vous pouvez tester avec ce genre de truc, mais chaque librairie implémente son propre protocol et donc à tres peu de chance de matcher avec le votre.
+Les modules RF est un media de données, à l'image du cable cat 6 dans votre réseau, mais ensuite le protocole pour diffuser(transporter) de la données, n'est pas standardisé. Autant dire que vous avez autant de protocole que de constructeur d'automate (portail, volet, storeban, interupteur etc...)</p>
+<dl class="docutils">
+<dt>Donc pour sniffer le code émit par la télécommande vous avez deux choix :</dt>
+<dd><ul class="first last simple">
+<li>Sniffer l'impulsion éléctrique à la sortie du chipset de la télécommande.</li>
+<li>Ou le prendre à l'arrivée sur votre récepteur RF.</li>
+</ul>
+</dd>
+</dl>
+<p>Personnelement j'ai choisi la deuxieme solution, plus fun et aussi plus simple.</p>
+<p>Le deuxieme truc, c'est comment je peux lire ce qui est reçu par le module recepteur ?</p>
+<p>Sauf si vous n'avez un oscilloscope numérique à la maison, le plus pratique est de d'utiliser l'entrée line-in de votre
+ordinateur et d'enregistrer le &quot;son&quot; (un son est signal comme les autres, sauf que nos oreilles y sont sensibles).</p>
+<p>Voici une proposition de schéma :</p>
+<img alt="schéma elec" class="align-center" src="/images/rf_pic_2.png" />
+<p>Il est tres important de connecter sur votre entrée ligne, car si vous le branchez sur votre prise micro votre carte son ne va pas du tout aimer, les tensions attendues ne sont pas les mémes.</p>
+</div>
+<div class="section" id="partie-analyse">
+<h2>Partie analyse</h2>
+<p>Pour la capture du signal, je vous conseille audacity (<a class="reference external" href="http://audacity.sourceforge.net/">http://audacity.sourceforge.net/</a>) , qui a de nombeux avantages, comme celui d'être libre et multi-plateforme.</p>
+<p>Une fois pret, lancer l'enregistrement et presser une touche de la télécommande.
+Là doit apparaitre truc sur votre timeline, sinon vous avez surement un soucis dans vos branchements, source d'entrée etc...</p>
+<p>Le resultat dépendra du bruit RF environnant, car la bande des 433Mhz est beaucoup utilisée, mais vous devriez voir le votre.</p>
+<img alt="Distinguer le bruit du signal" class="align-center" src="/images/rf_pic_3.png" />
+<p>Une fois que vous avez trouvé votre signal, on peut distinguer des niveaux bas et des niveaux haut, un peu comme ça :</p>
+<img alt="Niveau 1 et 0" class="align-center" src="/images/rf_pic_4.png" />
+<p>On voit aussi que les niveaux haut et bas n'ont pas la meme durée, mais que des patterns se répetent.</p>
+<p>Voici ce que donne mon interpretation du signal :</p>
+<img alt="Niveau 1 et 0" class="align-center" src="/images/rf_pic_5.png" />
+<dl class="docutils">
+<dt>qLe choix des 0 , 1 et 2 sont personnels, vous pouvez décidez d'autre chose, c'est ma réprésentation. On a donc 3 (0, 1 et 2) patterns, avec comme caractéritisque</dt>
+<dd><ul class="first last simple">
+<li>Une durée à l'état haut</li>
+<li>Une durée à l'état bas</li>
+</ul>
+</dd>
+</dl>
+<p>Il nous faut enfin mesurer la durée des états. Votre signal est enregistré à une fréquence de 44100Hz, ça veut dire que nous avons 44100 échantillons par seconde, donc 1 echantillons a une durée de 33µs</p>
+<p>Maintenant prenons nos mesures</p>
+<img alt="mesure" class="align-center" src="/images/rf_pic_6.png" />
+<dl class="docutils">
+<dt>Si je résume voici mes éléments, j'ai 4 durée</dt>
+<dd><ul class="first last simple">
+<li>courte : 317µs</li>
+<li>longue : 702µs</li>
+<li>trés longue : 1500µs</li>
+<li>trés trés longue : 4535µs</li>
+</ul>
+</dd>
+<dt>Pour le pattern &quot;0&quot;</dt>
+<dd><ul class="first last simple">
+<li>Etat haut pendant la durée &quot;courte&quot;</li>
+<li>Etat bas pendant la durée &quot;longue&quot;</li>
+</ul>
+</dd>
+<dt>Pour le pattern &quot;1&quot;</dt>
+<dd><ul class="first last simple">
+<li>Etat haut pendant la durée &quot;longue&quot;</li>
+<li>Etat bas pendant la durée &quot;courte&quot;</li>
+</ul>
+</dd>
+<dt>Pour le pattern &quot;2&quot;</dt>
+<dd><ul class="first last simple">
+<li>Etat haut pendant la durée &quot;trés trés longue&quot;</li>
+<li>Etat bas pendant la durée &quot;trés longue&quot;</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="pour-finir">
+<h2>Pour finir</h2>
+<p>Cette premiere partie m'a permis de trouver les séquences pour les 3 boutons de ma télécommande, ça devrait fonctionner pour vous aussi.</p>
+<div class="highlight"><pre><span></span><span class="c1">//Static array from wave analysis</span>
+<span class="n">byte</span> <span class="n">touche_basarray</span><span class="p">[]</span> <span class="o">=</span>        <span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">};</span>
+<span class="n">byte</span> <span class="n">touche_hautarray</span><span class="p">[]</span> <span class="o">=</span>       <span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">};</span>
+<span class="n">byte</span> <span class="n">touche_midarray</span><span class="p">[]</span><span class="o">=</span>         <span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">};</span>
+</pre></div>
+<!--  -->
+<p>Dans la deuxieme partie, on devrait pouvoir les rejouer.</p>
+</div>
+
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://github.com/prudprud"><i class="fa fa-github-square fa-lg"></i> github</a></li>
+                <li class="list-group-item"><a href="https://twitter.com/mr_prud"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+              </ul>
+            </li>
+
+
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="https://www.lachetastack.fr/" target="_blank">
+                LTS le Forum
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 Mr P.
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+
+</body>
+</html>

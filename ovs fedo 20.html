@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="fr" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Openvswitch sous Fedora - Le Blog de Mr Prud</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="/ovs fedo 20.html">
+
+        <meta name="author" content="Mr P." />
+        <meta name="keywords" content="openvswitch,fedora" />
+        <meta name="description" content="Pour avoir de la souplesse dans la mise en place de mon test de ceph, j&#39;ai eu besoin de mettre en place un switch ovs pour mes différentes vms. Mais je n&#39;ai qu&#39;une seule carte réseau sur mon labo. Il me fallait donc connecter mon labo à ce switch. Voici …" />
+
+        <meta property="og:site_name" content="Le Blog de Mr Prud" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Openvswitch sous Fedora"/>
+        <meta property="og:url" content="/ovs fedo 20.html"/>
+        <meta property="og:description" content="Pour avoir de la souplesse dans la mise en place de mon test de ceph, j&#39;ai eu besoin de mettre en place un switch ovs pour mes différentes vms. Mais je n&#39;ai qu&#39;une seule carte réseau sur mon labo. Il me fallait donc connecter mon labo à ce switch. Voici …"/>
+        <meta property="article:published_time" content="2014-02-23" />
+            <meta property="article:section" content="Network" />
+            <meta property="article:tag" content="openvswitch" />
+            <meta property="article:tag" content="fedora" />
+            <meta property="article:author" content="Mr P." />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/paraiso-dark.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+Le Blog de Mr Prud            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="/pages/quick command.html">
+                             Quick command
+                          </a></li>
+                        <li >
+                            <a href="/category/domo.html">Domo</a>
+                        </li>
+                        <li >
+                            <a href="/category/linux.html">Linux</a>
+                        </li>
+                        <li >
+                            <a href="/category/misc.html">Misc</a>
+                        </li>
+                        <li class="active">
+                            <a href="/category/network.html">Network</a>
+                        </li>
+                        <li >
+                            <a href="/category/tricks.html">Tricks</a>
+                        </li>
+                        <li >
+                            <a href="/category/utility.html">Utility</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/ovs fedo 20.html"
+                       rel="bookmark"
+                       title="Permalink to Openvswitch sous Fedora">
+                        Openvswitch sous Fedora
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-02-23T21:15:03+01:00"> dim. 23 février 2014</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="/tag/openvswitch.html">openvswitch</a>
+        /
+	<a href="/tag/fedora.html">fedora</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>Pour avoir de la souplesse dans la mise en place de mon test de ceph, j'ai eu besoin de mettre en place un switch ovs pour mes différentes vms. Mais je n'ai qu'une seule carte réseau sur mon labo. Il me fallait donc connecter mon labo à ce switch.</p>
+<p>Voici ma configuration :</p>
+<div class="highlight"><pre><span></span>                     srv2
+     +----------------------------------+                +------------+
+     |                                  |                |            |
+     |       p1    p2   p3   p4         |                |  Internet  |
+     |         +    +    +    +         |                |            |
+     |         |    |    |    |         |                +----^-------+
+     |      +--v----v----v----V-+       |                     |
+     |      |                   +---&gt;p0 |                     v
+     |      |    ovs labo-ceph  |       |          +----------p0------------+
+     |      |                   |       |          | FW Labo                |
+     |      +--------------^----+       |          +------------------------+
+     |                     |            |          |                        |
+     +---------------------|------------+          +----------p4------------+
+                           |                                  ^
+                           v p33p1                            |
+                                                              v
+                                                        +-p1--p2--p3----+
+                                                        | réseau labo   |
+                                                        |               |
+                                                        |               |
+                                                        |               |
+                                                        +---------------+
+</pre></div>
+<!--  -->
+<ul class="simple">
+<li>srv2 : Mon labo sous fedora, avec sa carte réseau p33p1</li>
+<li>labo-ceph : mon switch ovs interne</li>
+<li>p0 : Port sur lequel se trouve l'ip de srv2</li>
+<li>p4 : gateway du réseau de labo</li>
+<li>p1-3 : Port pour y connecter mes Vms</li>
+</ul>
+<div class="section" id="installation">
+<h2>Installation</h2>
+<p>On commence par installer openvswitch</p>
+<div class="highlight"><pre><span></span><span class="go">➜  ~  yum info openvswitch</span>
+<span class="go">Paquets installés</span>
+<span class="hll"><span class="go">Nom                 : openvswitch</span>
+</span><span class="go">Architecture        : x86_64</span>
+<span class="hll"><span class="go">Version             : 2.0.0</span>
+</span><span class="go">Révision            : 4.fc20</span>
+<span class="go">Taille              : 6.3 M</span>
+<span class="go">Dépôt               : installed</span>
+<span class="go">Depuis le dépôt     : updates</span>
+<span class="go">Résumé              : Open vSwitch daemon/database/utilities</span>
+<span class="go">URL                 : http://openvswitch.org</span>
+<span class="go">Licence             : ASL 2.0 and LGPLv2+ and SISSL</span>
+<span class="go">Description         : Open vSwitch provides standard network bridging functions and</span>
+<span class="go">                    : support for the OpenFlow protocol for remote per-flow control of</span>
+<span class="go">                    : traffic.</span>
+<span class="go">➜  ~  sudo yum install -y openvswitch</span>
+</pre></div>
+<!--  -->
+</div>
+<div class="section" id="configuration">
+<h2>Configuration</h2>
+<p>Dans la configuration nous avions deux choix :</p>
+<ol class="arabic simple">
+<li>Utiliser des scripts customs</li>
+<li>Profiter des binding OVS de sysconfig.</li>
+</ol>
+<p>Je ne suis pas un grand fan de sysconfig, mais j'avoue que là on est bien servie, donc je prends l'option 2!</p>
+<p>Si on veut profiter des bindings sysconfig, il faut désactiver le <tt class="docutils literal">NetworkManager</tt> et activer le service network</p>
+<div class="highlight"><pre><span></span>sudo systemctl disable NetworkManager
+sudo systemctl <span class="nb">enable</span> network.service
+</pre></div>
+<!--  -->
+<ol class="arabic simple">
+<li>On commence par créer le switch par  <tt class="docutils literal"><span class="pre">/etc/sysconfig/network-scripts/ifcfg-labo-ceph</span></tt></li>
+</ol>
+<div class="highlight"><pre><span></span><span class="nv">DEVICE</span><span class="o">=</span><span class="s2">&quot;labo-ceph&quot;</span>
+<span class="nv">ONBOOT</span><span class="o">=</span><span class="s2">&quot;yes&quot;</span>
+<span class="nv">DEVICETYPE</span><span class="o">=</span><span class="s2">&quot;ovs&quot;</span>
+<span class="nv">TYPE</span><span class="o">=</span><span class="s2">&quot;OVSBridge&quot;</span>
+<span class="nv">BOOTPROTO</span><span class="o">=</span><span class="s2">&quot;none&quot;</span>
+<span class="nv">HOTPLUG</span><span class="o">=</span><span class="s2">&quot;no&quot;</span>
+</pre></div>
+<!--  -->
+<ol class="arabic simple" start="2">
+<li>On crée ensuite le port 0 <tt class="docutils literal"><span class="pre">/etc/sysconfig/network-scripts/ifcfg-labo-ceph-p0</span></tt></li>
+</ol>
+<div class="highlight"><pre><span></span><span class="nv">DEVICE</span><span class="o">=</span><span class="s2">&quot;labo-ceph-p0&quot;</span>
+<span class="nv">BOOTPROTO</span><span class="o">=</span><span class="s2">&quot;static&quot;</span>
+<span class="nv">IPADDR</span><span class="o">=</span><span class="s2">&quot;10.9.8.5&quot;</span>
+<span class="nv">PREFIX</span><span class="o">=</span><span class="s2">&quot;24&quot;</span>
+<span class="nv">ONBOOT</span><span class="o">=</span><span class="s2">&quot;yes&quot;</span>
+<span class="nv">DEVICETYPE</span><span class="o">=</span><span class="s2">&quot;ovs&quot;</span>
+<span class="nv">TYPE</span><span class="o">=</span><span class="s2">&quot;OVSIntPort&quot;</span>
+<span class="nv">OVS_BRIDGE</span><span class="o">=</span><span class="s2">&quot;labo-ceph&quot;</span>
+<span class="nv">HOTPLUG</span><span class="o">=</span><span class="s2">&quot;no&quot;</span>
+</pre></div>
+<!--  -->
+<ol class="arabic simple" start="3">
+<li>Enfin on relie le switch virtuel à notre carte physique <tt class="docutils literal"><span class="pre">etc/sysconfig/network-scripts/ifcfg-p33p1</span></tt></li>
+</ol>
+<div class="highlight"><pre><span></span><span class="nv">TYPE</span><span class="o">=</span><span class="s2">&quot;OVSPort&quot;</span>
+<span class="nv">DEVICE</span><span class="o">=</span><span class="s2">&quot;p33p1&quot;</span>
+<span class="nv">BOOTPROTO</span><span class="o">=</span><span class="s2">&quot;none&quot;</span>
+<span class="nv">IPV4_FAILURE_FATAL</span><span class="o">=</span><span class="s2">&quot;no&quot;</span>
+<span class="nv">IPV6INIT</span><span class="o">=</span><span class="s2">&quot;no&quot;</span>
+<span class="nv">NAME</span><span class="o">=</span><span class="s2">&quot;em1&quot;</span>
+<span class="nv">ONBOOT</span><span class="o">=</span><span class="s2">&quot;yes&quot;</span>
+<span class="nv">HWADDR</span><span class="o">=</span><span class="s2">&quot;68:05:ca:21:70:00&quot;</span>
+<span class="nv">OVS_BRIDGE</span><span class="o">=</span><span class="s2">&quot;labo-ceph&quot;</span>
+<span class="nv">DEVICETYPE</span><span class="o">=</span><span class="s2">&quot;ovs&quot;</span>
+</pre></div>
+<!--  -->
+</div>
+<div class="section" id="mise-en-place-d-un-vlan">
+<h2>Mise en place d'un VLAN</h2>
+<p>Afin d'isoler les flux sur mon switch (et pour le fun), j'ai créé un domaine niveau 2 via un VLAN</p>
+<p>Voici par exemple la configuration du port 1 et du port 4</p>
+<div class="highlight"><pre><span></span>➜  ~  cat /etc/sysconfig/network-scripts/ifcfg-labo-ceph-p1
+<span class="nv">DEVICE</span><span class="o">=</span><span class="s2">&quot;labo-ceph-p1&quot;</span>
+<span class="nv">BOOTPROTO</span><span class="o">=</span><span class="s2">&quot;none&quot;</span>
+<span class="nv">ONBOOT</span><span class="o">=</span><span class="s2">&quot;yes&quot;</span>
+<span class="nv">DEVICETYPE</span><span class="o">=</span><span class="s2">&quot;ovs&quot;</span>
+<span class="nv">TYPE</span><span class="o">=</span><span class="s2">&quot;OVSIntPort&quot;</span>
+<span class="nv">OVS_BRIDGE</span><span class="o">=</span><span class="s2">&quot;labo-ceph&quot;</span>
+<span class="nv">HOTPLUG</span><span class="o">=</span><span class="s2">&quot;no&quot;</span>
+<span class="nv">OVS_OPTIONS</span><span class="o">=</span><span class="s2">&quot;tag=100&quot;</span>
+
+➜  ~  cat /etc/sysconfig/network-scripts/ifcfg-labo-ceph-p4
+<span class="nv">DEVICE</span><span class="o">=</span><span class="s2">&quot;labo-ceph-p4&quot;</span>
+<span class="nv">BOOTPROTO</span><span class="o">=</span><span class="s2">&quot;static&quot;</span>
+<span class="nv">IPADDR</span><span class="o">=</span><span class="s2">&quot;10.100.0.1&quot;</span>
+<span class="nv">PREFIX</span><span class="o">=</span><span class="s2">&quot;24&quot;</span>
+<span class="nv">ONBOOT</span><span class="o">=</span><span class="s2">&quot;yes&quot;</span>
+<span class="nv">DEVICETYPE</span><span class="o">=</span><span class="s2">&quot;ovs&quot;</span>
+<span class="nv">TYPE</span><span class="o">=</span><span class="s2">&quot;OVSIntPort&quot;</span>
+<span class="nv">OVS_BRIDGE</span><span class="o">=</span><span class="s2">&quot;labo-ceph&quot;</span>
+<span class="nv">HOTPLUG</span><span class="o">=</span><span class="s2">&quot;no&quot;</span>
+<span class="nv">OVS_OPTIONS</span><span class="o">=</span><span class="s2">&quot;tag=100&quot;</span>
+</pre></div>
+<!--  -->
+<p>Et voici le résultat</p>
+<div class="highlight"><pre><span></span>➜  ~  sudo ovs-vsctl show
+d2fbff87-aa89-48ea-8007-e474e35a1ec5
+    Bridge labo-ceph
+        Port <span class="s2">&quot;p33p1&quot;</span>
+            Interface <span class="s2">&quot;p33p1&quot;</span>
+        Port labo-ceph
+            Interface labo-ceph
+                type: internal
+        Port <span class="s2">&quot;labo-ceph-p4&quot;</span>
+            tag: <span class="m">100</span>
+            Interface <span class="s2">&quot;labo-ceph-p4&quot;</span>
+                type: internal
+        Port <span class="s2">&quot;labo-ceph-p1&quot;</span>
+            tag: <span class="m">100</span>
+            Interface <span class="s2">&quot;labo-ceph-p1&quot;</span>
+                type: internal
+        Port <span class="s2">&quot;labo-ceph-p0&quot;</span>
+            Interface <span class="s2">&quot;labo-ceph-p0&quot;</span>
+                type: internal
+    ovs_version: <span class="s2">&quot;2.0.0&quot;</span>
+</pre></div>
+<!--  -->
+<dl class="docutils">
+<dt>source</dt>
+<dd><ul class="first last simple">
+<li>ovs Sysconfig integration: <a class="reference external" href="http://git.openvswitch.org/cgi-bin/gitweb.cgi?p=openvswitch;a=blob_plain;f=rhel/README.RHEL;hb=HEAD">http://git.openvswitch.org/cgi-bin/gitweb.cgi?p=openvswitch;a=blob_plain;f=rhel/README.RHEL;hb=HEAD</a></li>
+<li>networkstatic: <a class="reference external" href="http://networkstatic.net/install-open-vswitch-networking-red-hat-fedora-20/">http://networkstatic.net/install-open-vswitch-networking-red-hat-fedora-20/</a></li>
+</ul>
+</dd>
+</dl>
+</div>
+
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://github.com/prudprud"><i class="fa fa-github-square fa-lg"></i> github</a></li>
+                <li class="list-group-item"><a href="https://twitter.com/mr_prud"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+              </ul>
+            </li>
+
+
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="https://www.lachetastack.fr/" target="_blank">
+                LTS le Forum
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 Mr P.
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="fr" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>La face cachée du authorized_keys - Le Blog de Mr Prud</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="/sshcmd.html">
+
+        <meta name="author" content="Mr P." />
+        <meta name="keywords" content="ssh,linux" />
+        <meta name="description" content="Dans mes jeunes années, où l&#39;Internet n&#39;existait pas dans nos maisons, l&#39;apprentissage se faisait par la lecture et la compréhension des documentations, aujourd&#39;hui, nombreux sont ceux qui ne cherchent pas à comprendre, un message d&#39;erreur serverfault ou stackoverflow Copier/coller. Mais il faut savoir s&#39;arrêter des fois pour comprendre et …" />
+
+        <meta property="og:site_name" content="Le Blog de Mr Prud" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="La face cachée du authorized_keys"/>
+        <meta property="og:url" content="/sshcmd.html"/>
+        <meta property="og:description" content="Dans mes jeunes années, où l&#39;Internet n&#39;existait pas dans nos maisons, l&#39;apprentissage se faisait par la lecture et la compréhension des documentations, aujourd&#39;hui, nombreux sont ceux qui ne cherchent pas à comprendre, un message d&#39;erreur serverfault ou stackoverflow Copier/coller. Mais il faut savoir s&#39;arrêter des fois pour comprendre et …"/>
+        <meta property="article:published_time" content="2014-08-10" />
+            <meta property="article:section" content="Linux" />
+            <meta property="article:tag" content="ssh" />
+            <meta property="article:tag" content="linux" />
+            <meta property="article:author" content="Mr P." />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/paraiso-dark.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+Le Blog de Mr Prud            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="/pages/quick command.html">
+                             Quick command
+                          </a></li>
+                        <li >
+                            <a href="/category/domo.html">Domo</a>
+                        </li>
+                        <li class="active">
+                            <a href="/category/linux.html">Linux</a>
+                        </li>
+                        <li >
+                            <a href="/category/misc.html">Misc</a>
+                        </li>
+                        <li >
+                            <a href="/category/network.html">Network</a>
+                        </li>
+                        <li >
+                            <a href="/category/tricks.html">Tricks</a>
+                        </li>
+                        <li >
+                            <a href="/category/utility.html">Utility</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/sshcmd.html"
+                       rel="bookmark"
+                       title="Permalink to La face cachée du authorized_keys">
+                        La face cachée du authorized_keys
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-08-10T00:11:00+02:00"> dim. 10 août 2014</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="/tag/ssh.html">ssh</a>
+        /
+	<a href="/tag/linux.html">linux</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>Dans mes jeunes années, où l'Internet n'existait pas dans nos maisons, l'apprentissage se faisait par la lecture et la compréhension des documentations, aujourd'hui, nombreux sont ceux qui ne cherchent pas à comprendre, un message d'erreur  <span class="fa fa-chevron-right"></span> serverfault ou stackoverflow  <span class="fa fa-chevron-right"></span>
+Copier/coller.</p>
+<p>Mais il faut savoir s'arrêter des fois pour comprendre et se dire...&quot;Mais tiens, comment ils font ça&quot;.
+En jouant avec cloud-init, j'ai découvert un petit trick que l'on peut faire avec le fichier authorized_keys.</p>
+<p>Tout le monde sait à quoi sert ce fichier, il contient les clefs publiques disponibles pour ouvrir une session via ssh.</p>
+<p>Mais on peut aussi y spécifier d'autre choses:</p>
+<div class="highlight"><pre><span></span><span class="go">toto@srv1 : cat .ssh/authorized_key</span>
+<span class="go">no-port-forwarding,no-agent-forwarding,no-X11-forwarding,command=&quot;echo &#39;C est pas la fête, le login toto ne doit pas</span>
+<span class="go"> être utilisé pour ouvrir une session à distance.&#39;;echo;sleep 10&quot; ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAjaichaudpastoiL</span>
+<span class="go"> n87bJRVoZMFzHXrld1Dym9Ysz9ZgjDabW4niI3IIgJLO49FM5W7LAQiB7EQHlaZoASh6xKDtumasvu3nNbJVCgTaeO716pT22</span>
+
+<span class="gp">#</span>cette clef a plus de droit
+<span class="go">no-port-forwarding,no-agent-forwarding ssh-rsa kElaGcZf9T1mu85mCv55bCWuHHaaarEfNojjMNQQ8TM8UQvV3Mg62bIELJNGzP9PJ99jJ</span>
+<span class="go">cIfsoLpO9ZOAkXP079fWTHOmQyX4VwwHe9025FfltzMT9Gp3phPHtyByrjrsIM9u3EeWeowMsKnzb3VHyiZz2VhV2YS9nupPIMuNiTVkol57etpaa1rF</span>
+<span class="go">DhwN01ZcHYwFBE9qkrgWVjIa8Fg1HijySgQ6x2YIIfoOlxSQg0TD16NVjTLRiNUcEmhNBXesn2eR1NlpA0IU35w0p23ke5yrKDgkkHgNhiyor1e9</span>
+
+<span class="gp">#</span>Celle-ci n<span class="err">&#39;</span>est que pour le tunneling
+<span class="go">permitopen=&quot;10.1.0.2:80&quot;,permitopen=&quot;mailpost:25&quot;,command=&quot;echo &#39;Utilisation en redirection de port uniquement&#39;&quot;</span>
+<span class="go">ssh-rsa kElaGcZf9T1mu85mCv55bCWuHHaaarEfNojjMNQQ8TM8UQvV3Mg62bIELJNGzP9PJ99jJcIfsoLpO9ZOAkXP079fWTHOmQyX4VwwHe9025Ff</span>
+<span class="go">ltzMT9Gp3phPHtyhmBGpo0vbHAkb7DQa1ooSviRxgc8IO3uHDFWFJhRIR6NrCkjleuKibKSnH4bqtBGDqfprDzEF9s2YtjaglCm0aUYf2vq1WAc70wxaHRpFpjF7p52gWUDiuLIMMv</span>
+</pre></div>
+<!--  -->
+<p>Il est possible d'écraser certains settings server pour une connexion :</p>
+<ul class="simple">
+<li>no-agent-forwarding</li>
+<li>no-port-forwarding</li>
+<li>no-pty</li>
+</ul>
+<p>de contrôler l'utilisation de tunnel :</p>
+<ul class="simple">
+<li>permitopen</li>
+</ul>
+<p>De modifier l'environnement :</p>
+<ul class="simple">
+<li>command</li>
+<li>environment</li>
+</ul>
+<p>D'ajouter des vérifications:</p>
+<ul class="simple">
+<li>cert-authority</li>
+<li>from</li>
+<li>etc ...</li>
+</ul>
+<p>Voilà donc comment ils font pour indiquer une information via le ssh lorsqu'on utilise pas le bon user ou qu'un serveur git ou cvs prend la main directement via  ssh.</p>
+<p>source : <a class="reference external" href="http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man8/sshd.8?query=sshd">http://www.openbsd.org/cgi-bin/man.cgi/OpenBSD-current/man8/sshd.8?query=sshd</a></p>
+
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://github.com/prudprud"><i class="fa fa-github-square fa-lg"></i> github</a></li>
+                <li class="list-group-item"><a href="https://twitter.com/mr_prud"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+              </ul>
+            </li>
+
+
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="https://www.lachetastack.fr/" target="_blank">
+                LTS le Forum
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 Mr P.
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+
+</body>
+</html>

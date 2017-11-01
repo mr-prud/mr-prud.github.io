@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="fr" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>"p33p1" - Le Blog de Mr Prud</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="/p33p1.html">
+
+        <meta name="author" content="Mr P." />
+        <meta name="keywords" content="fedora,eth0" />
+        <meta name="description" content="À la suite d’une malheureuse manipulation, ma carte réseau intégrée a rendu l&#39;âme. Après une rapide commande sur Amazon, le lendemain me voici équipé d&#39;une carte réseau PCI Express. Je vous passe les détails de l&#39;installation physique, qui, je pense pourrait faire l&#39;objet d&#39;un post. Au redémarrage de ma …" />
+
+        <meta property="og:site_name" content="Le Blog de Mr Prud" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="&#34;p33p1&#34;"/>
+        <meta property="og:url" content="/p33p1.html"/>
+        <meta property="og:description" content="À la suite d’une malheureuse manipulation, ma carte réseau intégrée a rendu l&#39;âme. Après une rapide commande sur Amazon, le lendemain me voici équipé d&#39;une carte réseau PCI Express. Je vous passe les détails de l&#39;installation physique, qui, je pense pourrait faire l&#39;objet d&#39;un post. Au redémarrage de ma …"/>
+        <meta property="article:published_time" content="2014-02-15" />
+            <meta property="article:section" content="misc" />
+            <meta property="article:tag" content="fedora" />
+            <meta property="article:tag" content="eth0" />
+            <meta property="article:author" content="Mr P." />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/paraiso-dark.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+Le Blog de Mr Prud            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="/pages/quick command.html">
+                             Quick command
+                          </a></li>
+                        <li >
+                            <a href="/category/domo.html">Domo</a>
+                        </li>
+                        <li >
+                            <a href="/category/linux.html">Linux</a>
+                        </li>
+                        <li class="active">
+                            <a href="/category/misc.html">Misc</a>
+                        </li>
+                        <li >
+                            <a href="/category/network.html">Network</a>
+                        </li>
+                        <li >
+                            <a href="/category/tricks.html">Tricks</a>
+                        </li>
+                        <li >
+                            <a href="/category/utility.html">Utility</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/p33p1.html"
+                       rel="bookmark"
+                       title="Permalink to "p33p1"">
+                        "p33p1"
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-02-15T22:52:18+01:00"> sam. 15 février 2014</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="/tag/fedora.html">fedora</a>
+        /
+	<a href="/tag/eth0.html">eth0</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>À la suite d’une malheureuse manipulation, ma carte réseau intégrée a rendu l'âme. Après une rapide commande sur Amazon, le lendemain me voici équipé d'une carte réseau PCI Express.
+Je vous passe les détails de l'installation physique, qui, je pense pourrait faire l'objet d'un post.</p>
+<p>Au redémarrage de ma Fedora, me voici donc avec une nouvelle interface réseau au doux nom <strong>p33p1</strong></p>
+<!-- more -->
+
+<div class="highlight"><pre><span></span><span class="go"> 15:33:14 mrprud@srv2 ~ ip a s</span>
+<span class="go">...</span>
+<span class="go">2: p33p1: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc pfifo_fast state UP group default qlen 1000</span>
+<span class="go">    link/ether 68:05:ca:21:70:00 brd ff:ff:ff:ff:ff:ff</span>
+<span class="go">    inet 10.9.8.5/24 brd 10.9.8.255 scope global dynamic p33p1</span>
+<span class="go">       valid_lft 40206sec preferred_lft 40206sec</span>
+<span class="go">    inet6 fe80::6a05:caff:fe21:7000/64 scope link</span>
+<span class="go">       valid_lft forever preferred_lft forever</span>
+<span class="go">...</span>
+</pre></div>
+
+
+<p><strong>Mais pourquoi</strong></p>
+<p>La raison est simple, Fedora, depuis la version <a href="https://fedoraproject.org/wiki/Features/SystemdPredictableNetworkInterfaceNames">19</a> et <a href="http://www.freedesktop.org/wiki/Software/systemd/PredictableNetworkInterfaceNames/">systemd</a> intégre un nommage prédictible des interfaces.</p>
+<p>Je vous invite à lire la note officielle, qui répond à toutes les questions :</p>
+<ul>
+<li>Pourquoi</li>
+<li>Comment ?</li>
+<li>Les avantages</li>
+<li>Si tu n'aimes pas, tu peux désactiver.</li>
+</ul>
+<p>Go <a href="http://www.freedesktop.org/wiki/Software/systemd/PredictableNetworkInterfaceNames/">http://www.freedesktop.org/wiki/Software/systemd/PredictableNetworkInterfaceNames/)</a></p>
+<p>Personnellement, j'ai adopté. Même si on perd nos repères au début, ça répond à une vraie problématique. Udev tentait de répondre un peu à cela en forçant l'association ethx avec l’adresse MAC. Là on va plus loin, on ajoute une logique au nom et ça fait moins bidouille.</p>
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://github.com/prudprud"><i class="fa fa-github-square fa-lg"></i> github</a></li>
+                <li class="list-group-item"><a href="https://twitter.com/mr_prud"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+              </ul>
+            </li>
+
+
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="https://www.lachetastack.fr/" target="_blank">
+                LTS le Forum
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 Mr P.
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+
+</body>
+</html>

@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fr" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>let's encrypt - Le Blog de Mr Prud</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="/letsencrypt.html">
+
+        <meta name="author" content="Mr P." />
+        <meta name="keywords" content="linux ssl letsencrypt" />
+        <meta name="description" content="Ce soir c&#39;est soirée letsencrypt!! Youhou !! Je vois à vos mines réjouies que ça faisait un petit moment que vous attendiez ce moment! Bah c&#39;est maintenant. Déjà, pour ceux qui vivent dans une caverne ou un bureau de la Cogip (celui avec la moquette murale), rapide rappel de ce qu&#39;est …" />
+
+        <meta property="og:site_name" content="Le Blog de Mr Prud" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="let&#39;s encrypt"/>
+        <meta property="og:url" content="/letsencrypt.html"/>
+        <meta property="og:description" content="Ce soir c&#39;est soirée letsencrypt!! Youhou !! Je vois à vos mines réjouies que ça faisait un petit moment que vous attendiez ce moment! Bah c&#39;est maintenant. Déjà, pour ceux qui vivent dans une caverne ou un bureau de la Cogip (celui avec la moquette murale), rapide rappel de ce qu&#39;est …"/>
+        <meta property="article:published_time" content="2016-02-29" />
+            <meta property="article:section" content="Linux" />
+            <meta property="article:tag" content="linux ssl letsencrypt" />
+            <meta property="article:author" content="Mr P." />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/paraiso-dark.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+Le Blog de Mr Prud            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="/pages/quick command.html">
+                             Quick command
+                          </a></li>
+                        <li >
+                            <a href="/category/domo.html">Domo</a>
+                        </li>
+                        <li class="active">
+                            <a href="/category/linux.html">Linux</a>
+                        </li>
+                        <li >
+                            <a href="/category/misc.html">Misc</a>
+                        </li>
+                        <li >
+                            <a href="/category/network.html">Network</a>
+                        </li>
+                        <li >
+                            <a href="/category/tricks.html">Tricks</a>
+                        </li>
+                        <li >
+                            <a href="/category/utility.html">Utility</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/letsencrypt.html"
+                       rel="bookmark"
+                       title="Permalink to let's encrypt">
+                        let's encrypt
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2016-02-29T22:11:00+01:00"> lun. 29 février 2016</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="/tag/linux-ssl-letsencrypt.html">linux ssl letsencrypt</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <p>Ce soir c'est soirée letsencrypt!!
+Youhou !! Je vois à vos mines réjouies que ça faisait un petit moment que vous attendiez ce moment!
+Bah c'est maintenant.</p>
+<p>Déjà, pour ceux qui vivent dans une caverne ou un bureau de la Cogip (celui avec la moquette murale), rapide rappel de ce qu'est let's encrypt.</p>
+<p>C'est un projet qui vise à faciliter la mise en place de liaison sécurisée sur Internet en fournissant des certificats SSL valide et une boîte à outils facilitant sa mise en place</p>
+<p>Pour cela let's encrypt propose déjà une autorité de certification reconnu gratuite (CA), c'est le truc qui valide les certificats.
+En général c'était le business des grosses corpo (Globalsign etc...) qui facturait une blinde un certificat, car il vérifiait par l'envoie 2 fax et un contrôle téléphonique par un mec...la sécurité a cout il parait...
+Ici c'est gratuit, mais attention! la gratuité a une contre partie, des certificats de 90J ours, d'autres limites liées au côté online etc...</p>
+<p>Bref, donc !
+Pour qu'un certificat soit indiqué comme valide dans votre navigateur, il faut que le certificat soit signé par une autorité de certification reconnue par votre navigateur et/ou l'OS. Ceux de let's encrypt le sont ! Si c'était le contraire, vous auriez eu un message en arrivant sur le site vous avertissant que le certificat utilisé sur le site n'était pas valide et vous auriez du valider 3 fois et faire une combinaison de 11 touches pour accéder à cette page.</p>
+<p>Mais en plus de la chaine de certification valide, let's encrypt propose l'outil qui va bien pour générer, valider et même installer vos certificats! Et ça c'est cool!
+Je vous passe le blabla sur ACME et le Boulder en Go, un peu d'action &quot;diantre&quot;</p>
+<div class="section" id="la-creation">
+<h2>La création</h2>
+<p>Où devrais-je dire les clients. Basé sur le client d'origine, tout plein d'implementation de client ont vu le jour</p>
+<p><a class="reference external" href="https://community.letsencrypt.org/t/list-of-client-implementations/">https://community.letsencrypt.org/t/list-of-client-implementations/</a></p>
+<p>Moi j'aime bien le client de base</p>
+<p>Personnelement , je n'utilise pas l'install automatique, déja car nginx est mal supporté, et surtout faut bien qu'il me reste des trucs à faire.</p>
+<div class="highlight"><pre><span></span><span class="gp">#</span> J install le client
+<span class="go">❯$ git clone https://github.com/letsencrypt/letsencrypt</span>
+<span class="go">❯$ cd letsencrypt</span>
+<span class="gp">#</span> J arrete mon serveur http, car le client a besoin d écouter sur le port <span class="m">80</span>
+<span class="go">❯$ sudo systemctl stop nginx.service</span>
+<span class="gp">#</span> Je lance le client qui va tout me faire tout seul
+<span class="go">❯ ./letsencrypt-auto certonly --standalone -d www.mrprud.me -d www.toto.titi -d www.toto.titi.me -d titi.mrprud.me</span>
+<span class="gp">#</span> Je relance mon nginx, je finirais l install apres.
+<span class="go">❯ sudo systemctl start nginx.service</span>
+</pre></div>
+<!--  -->
+<p>Pour la configuration, je vous laisse regarder ce qui a été proposé, moi il y avait des options que je ne connaissais pas, c'est pas mal du tout.</p>
+<p>Let's encrypt et httpd
+<a class="reference external" href="https://community.letsencrypt.org/t/apache-configuration-example/2338">https://community.letsencrypt.org/t/apache-configuration-example/2338</a></p>
+<p>Let's encrypt et nginx
+<a class="reference external" href="https://community.letsencrypt.org/t/nginx-configuration-sample/2173">https://community.letsencrypt.org/t/nginx-configuration-sample/2173</a></p>
+</div>
+<div class="section" id="le-renouvellement">
+<h2>Le renouvellement</h2>
+<p>Même si le renouvellement du certificat doit etre fréquent, le client nous facilite les choses.</p>
+<div class="highlight"><pre><span></span>❯ cd letsencrypt
+❯ sudo systemctl stop nginx.service
+❯ sudo ./letsencrypt-auto renew
+❯ sudo systemctl start nginx.service
+</pre></div>
+<!--  -->
+</div>
+<div class="section" id="l-extra">
+<h2>L'extra</h2>
+<p>Il y a pas beaucoup d'exemple donnée pour la communauté letsencrypt, les certificats SSL fonctionne pour tout, il suffit juste de renseigner les bons fichiers. Par exemple le fullchain.pem fournit toute le chaine (CA, intermédiaire et cert), permettant à dovecot de démarrer sans crie</p>
+<p>Let's encrypt et dovecot</p>
+<div class="highlight"><pre><span></span>ssl_cert = &lt;/etc/letsencrypt/live/YOURSITE/fullchain.pem
+ssl_key = &lt;/etc/letsencrypt/live/YOURSITE/privkey.pem
+</pre></div>
+<!--  -->
+</div>
+
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://github.com/prudprud"><i class="fa fa-github-square fa-lg"></i> github</a></li>
+                <li class="list-group-item"><a href="https://twitter.com/mr_prud"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+              </ul>
+            </li>
+
+
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="https://www.lachetastack.fr/" target="_blank">
+                LTS le Forum
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 Mr P.
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+
+</body>
+</html>

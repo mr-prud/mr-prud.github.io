@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="fr" prefix="og: http://ogp.me/ns# fb: https://www.facebook.com/2008/fbml">
+<head>
+    <title>Update d'un kernel personnalisé sur un KS OVH - Le Blog de Mr Prud</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+<link rel="canonical" href="/kernel_ks.html">
+
+        <meta name="author" content="Mr P." />
+        <meta name="keywords" content="kernel,linux,kimsufi,ovh" />
+        <meta name="description" content="Ceci n&#39;est pas un tuto, mais quelques notes, la mise en place d&#39;un kernel custom comprend des risques, si tu ne sais pas lesquels, passe ton chemin. Je loue un KS chez OVH, par contre j&#39;avoue leurs kernels ne me plaisent pas et ça manque de prise de risque, pas …" />
+
+        <meta property="og:site_name" content="Le Blog de Mr Prud" />
+        <meta property="og:type" content="article"/>
+        <meta property="og:title" content="Update d&#39;un kernel personnalisé sur un KS OVH"/>
+        <meta property="og:url" content="/kernel_ks.html"/>
+        <meta property="og:description" content="Ceci n&#39;est pas un tuto, mais quelques notes, la mise en place d&#39;un kernel custom comprend des risques, si tu ne sais pas lesquels, passe ton chemin. Je loue un KS chez OVH, par contre j&#39;avoue leurs kernels ne me plaisent pas et ça manque de prise de risque, pas …"/>
+        <meta property="article:published_time" content="2014-05-15" />
+            <meta property="article:section" content="Linux" />
+            <meta property="article:tag" content="kernel" />
+            <meta property="article:tag" content="linux" />
+            <meta property="article:tag" content="kimsufi" />
+            <meta property="article:tag" content="ovh" />
+            <meta property="article:author" content="Mr P." />
+
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="/theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="/theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="/theme/css/pygments/paraiso-dark.css" rel="stylesheet">
+    <link rel="stylesheet" href="/theme/css/style.css" type="text/css"/>
+
+
+
+
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+	<div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="/" class="navbar-brand">
+Le Blog de Mr Prud            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav">
+                         <li><a href="/pages/quick command.html">
+                             Quick command
+                          </a></li>
+                        <li >
+                            <a href="/category/domo.html">Domo</a>
+                        </li>
+                        <li class="active">
+                            <a href="/category/linux.html">Linux</a>
+                        </li>
+                        <li >
+                            <a href="/category/misc.html">Misc</a>
+                        </li>
+                        <li >
+                            <a href="/category/network.html">Network</a>
+                        </li>
+                        <li >
+                            <a href="/category/tricks.html">Tricks</a>
+                        </li>
+                        <li >
+                            <a href="/category/utility.html">Utility</a>
+                        </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+<!-- Banner -->
+<!-- End Banner -->
+<div class="container">
+    <div class="row">
+        <div class="col-sm-9">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="/kernel_ks.html"
+                       rel="bookmark"
+                       title="Permalink to Update d'un kernel personnalisé sur un KS OVH">
+                        Update d'un kernel personnalisé sur un KS OVH
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="label label-default">Date</span>
+    <span class="published">
+        <i class="fa fa-calendar"></i><time datetime="2014-05-15T00:11:00+02:00"> jeu. 15 mai 2014</time>
+    </span>
+
+
+
+
+
+<span class="label label-default">Tags</span>
+	<a href="/tag/kernel.html">kernel</a>
+        /
+	<a href="/tag/linux.html">linux</a>
+        /
+	<a href="/tag/kimsufi.html">kimsufi</a>
+        /
+	<a href="/tag/ovh.html">ovh</a>
+    
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                <!--  -->
+<blockquote>
+Ceci n'est pas un tuto, mais quelques notes, la mise en place d'un kernel custom comprend des risques, si tu ne sais pas lesquels, passe ton chemin.</blockquote>
+<!--  -->
+<p>Je loue un KS chez OVH, par contre j'avoue leurs kernels ne me plaisent pas et ça manque de prise de risque, pas de nftables, ni de full lxc par exemple.</p>
+<p>Les gentils sysadmins d'ovh proposent soit un netboot (avec kernel fixé par leurs soins) ou quelques kernels précompilés, mais toujours pas de nftables ou autre, rien de sexy.</p>
+<p>Donc, je désactive le netboot sur la console, et me voila dans la compilation d'un kernel.</p>
+<p>Voici les quelques commandes pour installer un kernel full custom sur un ks</p>
+<ol class="arabic simple">
+<li>On télécharge le bousin</li>
+</ol>
+<div class="highlight"><pre><span></span><span class="go">toto@srv1 : curl http://ftp.free.fr/mirrors/ftp.kernel.org/linux/kernel/v3.x/linux-3.70.123.tar.xz | tar -xJ</span>
+</pre></div>
+<!--  -->
+<ol class="arabic simple" start="2">
+<li>on récupere son ancienne conf</li>
+</ol>
+<div class="highlight"><pre><span></span><span class="go">toto@srv1 : cd linux-3.70.123</span>
+<span class="go">toto@srv1 : zcat /proc/config.gz &gt; .config</span>
+</pre></div>
+<!--  -->
+<p>Si vous partez d'un kernel d'origine OVH, il faudra récupérer la config du noyau correspondant au votre :<a class="reference external" href="ftp://ftp.ovh.net/made-in-ovh/bzImage">ftp://ftp.ovh.net/made-in-ovh/bzImage</a></p>
+<p>Et pensez à activer le <tt class="docutils literal">/proc/config</tt> par la suite</p>
+<ol class="arabic simple" start="3">
+<li>La partie configuration, on oublie rien, et on enleve rien qu'on ne comprend pas, pareil pour l'ajout.</li>
+</ol>
+<div class="highlight"><pre><span></span><span class="go">toto@srv1 : make menuconfig</span>
+</pre></div>
+<!--  -->
+<ol class="arabic simple" start="4">
+<li>On lance la compilation</li>
+</ol>
+<div class="highlight"><pre><span></span><span class="go">toto@srv1 : make bzImage &amp;&amp; sudo make headers_install</span>
+<span class="go">toto@srv1 : sudo cp arch/x86_64/boot/bzImage /boot/bzImage-3.70.123-xxxx-grs-ipv6-64</span>
+</pre></div>
+<!--  -->
+<ol class="arabic simple" start="5">
+<li>Comme toujours, croise les doigts</li>
+</ol>
+<div class="highlight"><pre><span></span><span class="go">toto@srv1 : sudo vi /boot/grub/grub.conf</span>
+<span class="go">toto@srv1 : reboot</span>
+</pre></div>
+<!--  -->
+<ol class="arabic simple" start="6">
+<li>Tu t'es débrouillé comme un chef !</li>
+</ol>
+<div class="highlight"><pre><span></span><span class="go">toto@srv1 : uname -a</span>
+<span class="go">Linux srv1.coucou.mrprud.me 3.70.123-xxxx-std-ipv6-64 #1 SMP Wed May 14 23:18:37 CEST 2014 x86_64 x86_64 x86_64 GNU/Linux</span>
+</pre></div>
+<!--  -->
+
+            </div>
+            <!-- /.entry-content -->
+        </article>
+    </section>
+
+        </div>
+        <div class="col-sm-3" id="sidebar">
+            <aside>
+
+<section class="well well-sm">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item"><h4><i class="fa fa-home fa-lg"></i><span class="icon-label">Social</span></h4>
+              <ul class="list-group" id="social">
+                <li class="list-group-item"><a href="https://github.com/prudprud"><i class="fa fa-github-square fa-lg"></i> github</a></li>
+                <li class="list-group-item"><a href="https://twitter.com/mr_prud"><i class="fa fa-twitter-square fa-lg"></i> Twitter</a></li>
+              </ul>
+            </li>
+
+
+
+
+
+    <li class="list-group-item"><h4><i class="fa fa-external-link-square fa-lg"></i><span class="icon-label">Links</span></h4>
+      <ul class="list-group" id="links">
+        <li class="list-group-item">
+            <a href="https://www.lachetastack.fr/" target="_blank">
+                LTS le Forum
+            </a>
+        </li>
+      </ul>
+    </li>
+    </ul>
+</section>            </aside>
+        </div>
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">&copy; 2016 Mr P.
+            &middot; Powered by <a href="https://github.com/getpelican/pelican-themes/tree/master/pelican-bootstrap3" target="_blank">pelican-bootstrap3</a>,
+            <a href="http://docs.getpelican.com/" target="_blank">Pelican</a>,
+            <a href="http://getbootstrap.com" target="_blank">Bootstrap</a>         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="/theme/js/jquery.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="/theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="/theme/js/respond.min.js"></script>
+
+
+</body>
+</html>
